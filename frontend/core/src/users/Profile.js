@@ -81,7 +81,6 @@ function Profile({id})
 	const { userInfo, refreshUserInfo } = useAuth();
 
 	const fetchFriendList = async () => {
-
 		try {
 			const reponse = await axiosInstance.get(`/api/friends/list/${userInfo?.id}`);
 			setFriendList(reponse.data);
@@ -186,12 +185,15 @@ function Profile({id})
 
     useEffect (() => 
     {
-		if(id)
+		if(userInfo?.id)
 		{
-			fetchUserData();
-			fetchFriendList();
+			if(id)
+			{
+				fetchUserData();
+				fetchFriendList();
+			}
 		}
-    }, [id]);
+    }, [id, userInfo.id]);
 
 	useEffect(() => {
 		setIs2fa(userInfo.enable_verified);
@@ -259,7 +261,7 @@ function Profile({id})
 						(
 							<>
 								{!friendList.friends.some((friend) => friend.id === user.id) && (
-									<div>
+									<div className="add-profile">
 										<AddFriend id={user.id} />
 									</div>
 								)}
