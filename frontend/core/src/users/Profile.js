@@ -81,7 +81,6 @@ function Profile({id})
 	const { userInfo, refreshUserInfo } = useAuth();
 
 	const fetchFriendList = async () => {
-
 		try {
 			const reponse = await axiosInstance.get(`/api/friends/list/${userInfo?.id}`);
 			setFriendList(reponse.data);
@@ -159,7 +158,7 @@ function Profile({id})
 		}
 		else if (userInfo.id == id && userInfo.is_stud == true) {
 			setIsStud(true);
-			setIsPermitted(false);
+			setIsPermitted(true);
 		}
 		else {
 			setIsPermitted(false);
@@ -186,12 +185,15 @@ function Profile({id})
 
     useEffect (() => 
     {
-		if(id)
+		if(userInfo?.id)
 		{
-			fetchUserData();
-			fetchFriendList();
+			if(id)
+			{
+				fetchUserData();
+				fetchFriendList();
+			}
 		}
-    }, [id]);
+    }, [id, userInfo.id]);
 
 	useEffect(() => {
 		setIs2fa(userInfo.enable_verified);
@@ -247,7 +249,9 @@ function Profile({id})
 								/>
 							</button>
 							<ul className="dropdown-menu">
-								<li><button className="dropdown-item" type="button" onClick={() => setShowChangePassword(true)}>{t('ChangePassword')}</button></li>
+								{!isStud && 
+									(<li><button className="dropdown-item" type="button" onClick={() => setShowChangePassword(true)}>{t('ChangePassword')}</button></li>)
+								}
 								<li><button className="dropdown-item" type="button" onClick={handleConfirm}>{is2fa ? t('Disable2FA') : t('Enable2FA')}</button></li>
 							</ul>
 							{showChangePassword && <ChangeDetails setUser={setUser} setValue={setShowChangePassword} toChange={'password'} value={null} toType={'password'}/>}
@@ -257,7 +261,7 @@ function Profile({id})
 						(
 							<>
 								{!friendList.friends.some((friend) => friend.id === user.id) && (
-									<div>
+									<div className="add-profile">
 										<AddFriend id={user.id} />
 									</div>
 								)}

@@ -102,7 +102,6 @@ class TournamentConsumer(AsyncWebsocketConsumer):
             self.group_name,
             self.channel_name
         )
-        print("Deconnecting...", flush=True)
         await self.change_user_connection(False)
         if tournament.status != "in_Game":
             await self.abort_tournament()
@@ -285,7 +284,6 @@ class TournamentConsumer(AsyncWebsocketConsumer):
         except json.JSONDecodeError:
             return
         tournament = TournamentConsumer.tournament.get(self.tournament_code)
-        print("data", data_dict)
         if "message" in data_dict:
             if tournament.winner_final != "":
                 await self.change_tournament_status(tournament, "finished")

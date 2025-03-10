@@ -145,12 +145,15 @@ export default function Room() {
 	}
 
 	const FriendList = useCallback(async () => {
-		try {
-			const reponse = await axiosInstance.get(`/api/friends/list/${userInfo?.id}`);
-			setFriendList(reponse.data);
-		}
-		catch (error) {
-			showToast("error", t('ToastsError'));
+		if(userInfo?.id)
+		{
+			try {
+				const reponse = await axiosInstance.get(`/api/friends/list/${userInfo?.id}`);
+				setFriendList(reponse.data);
+			}
+			catch(error) {
+				showToast("error", t('ToastsError'));
+			}
 		}
 	}, [userInfo?.id, setFriendList, t]);
 

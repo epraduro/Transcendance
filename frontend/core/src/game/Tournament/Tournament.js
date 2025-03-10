@@ -120,15 +120,8 @@ function Tournament() {
         if (!isRunning) {
             setSeconds(3);
             setIsRunning(true);
-            //mettre le status à timer
         }
     };
-
-    // const startTournament = () => {
-    //     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-    //         socketRef.current.send(JSON.stringify({ "Start": "Start games" }));
-    //     }
-    // }
 
     useEffect(() => {
         if (tournamentCode) {
@@ -203,8 +196,6 @@ function Tournament() {
             ))
         ]
     );
-
-    // tournamentResponse.status === "timer"
     return (
         <Template>
             {isRunning ? (
@@ -216,8 +207,8 @@ function Tournament() {
                 <div className="w-100" style={{ position: "absolute", height: "10%", marginTop: "3%" }}>
                         <div className="tournament-text d-flex flex-row w-100">
                             <div className="d-flex flex-column h-100 w-25">{t('TournamentCode')}</div>
-                            <div className="d-flex flex-column h-100 w-25">{t('MaxScore')}</div>
                             <div className="d-flex flex-column h-100 w-25">{t('Time')}</div>
+                            <div className="d-flex flex-column h-100 w-25">{t('MaxScore')}</div>
                             <div className="d-flex flex-column h-100 w-25">{t('Players')}</div>
                         </div>
                         <div className="tournament-text d-flex flex-row w-100">

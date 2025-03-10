@@ -14,6 +14,8 @@ const checkWinner = (winner, player) => {
 };
 
 const TournamentBracket = ({ numberPlayer, tournamentResponse }) => {
+  if (numberPlayer === undefined) return;
+  if (tournamentResponse === undefined) return;
   const [winners, setWinners] = useState({
     winner1: null,
     winner2: null,
@@ -34,7 +36,7 @@ const TournamentBracket = ({ numberPlayer, tournamentResponse }) => {
 
   const getMatchResult = (player, roundIndex, playerIndex) => {
     const matchConfigs = {
-      "2": [
+      2: [
         { round: 1, check: () => checkWinner(winners.winner_final, player) },
         { round: 2, check: () => checkWinner(winners.winner2, player) },
         { round: 3, check: () => checkWinner(winners.winner1, player) }
@@ -53,8 +55,7 @@ const TournamentBracket = ({ numberPlayer, tournamentResponse }) => {
   const generateRounds = (numberPlayer) => {
     let rounds = [];
 
-    if (numberPlayer === "2") {
-		
+    if (numberPlayer === 2) {		
         for (let i = 0; i < 3; i++) {
             rounds.unshift([
                 tournamentResponse?.player1, 
@@ -66,7 +67,7 @@ const TournamentBracket = ({ numberPlayer, tournamentResponse }) => {
         ]);
     }
 
-    if (numberPlayer === "4") {
+    if (numberPlayer === 4) {
         rounds.unshift([
             tournamentResponse?.player1 ? tournamentResponse.player1 : waiting,
             tournamentResponse?.player2 ? tournamentResponse.player2 : waiting,
