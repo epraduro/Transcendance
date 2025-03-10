@@ -23,6 +23,11 @@
 	border: solid
 }
 
+.btn-group {
+	position:absolute;
+	right: 0%;
+}
+
 
 .friends
 {
@@ -120,6 +125,7 @@
 	height: 80%;
 	padding: 0;
 }
+
 
 .button-settings
 {

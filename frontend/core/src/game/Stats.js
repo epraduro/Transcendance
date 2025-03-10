@@ -398,7 +398,7 @@ function Stats({ itemsArray = [] }) {
                         className={`stats-zone ${mode.find(mode => mode.name === 'global')?.active ? 'expanded right' : ''} right d-flex flex-column`}>
                         <div className="dropdown-stats btn-group" onClick={(e) => e.stopPropagation()}>
                             <button type="button" className="btn btn-dropdown-stats">
-                                {t(selectedOption && selectedOption.name ? selectedOption.name.replace(/\s/g, "") : "defaultKey")}
+                                {t(selectedOption && selectedOption.name ? selectedOption.name.replace(/\s/g, "") : "...")}
                             </button>
                             <button
                                 type="button"
