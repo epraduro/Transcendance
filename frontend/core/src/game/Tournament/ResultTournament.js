@@ -47,7 +47,6 @@ function ResultTournament({ items, setItems, setModalResult, setModalStats, remo
                     removeLaunch("resultTournament");
                 }, 100);
             } catch (error) {
-                console.error("Erreur dans handleClick:", error);
             }
         };        
 
