@@ -21,19 +21,19 @@ export default function useNotifications() {
 			if (data.type === "send_notification") {
 				setNotifications((prev) => [
 					...prev,
-					{ target_id: data.targetId, message: data.message, sender_id: data.sender_id, room_name: data.room_name, response: null },
+					{ type: data.type, target_id: data.targetId, message: data.message, sender_id: data.sender_id, room_name: data.room_name, response: null },
 				]);
 			} 
 			else if (data.type === "send_invite") {
 				setNotifications((prev) => [
 					...prev,
-					{ target_id: data.targetId, message: data.message, sender_id: data.sender_id, response: null },
+					{ type: data.type, target_id: data.targetId, message: data.message, sender_id: data.sender_id, response: null },
 				]);
 			} 
 			else if (data.type === "receive_response") {
 				setNotifications((prevNotifications) => [
 						...prevNotifications,
-						{ target_id: data.targetId, message: data.message, sender_id: data.sender_id, response: data.response }
+						{ type: data.type, target_id: data.targetId, message: data.message, sender_id: data.sender_id, response: data.response }
 				]);
 			}
 			else if(data.type === "game_update") {

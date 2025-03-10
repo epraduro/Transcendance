@@ -72,7 +72,7 @@ export default function Room() {
 			socket.on('error', (data) => {
 				showToast('error', data.error);
 			})
-			return () => {}
+			return () => { }
 		}
 	}, [socket, navigate]);
 
@@ -91,7 +91,7 @@ export default function Room() {
 
 	const clearRoom = async () => {
 		try {
-			await axiosInstance.post('/api/livechat/exit_room/', {room_name: roomName});
+			await axiosInstance.post('/api/livechat/exit_room/', { room_name: roomName });
 		} catch (error) {
 			showToast("error", t('ToastsError'));
 		}
@@ -109,7 +109,7 @@ export default function Room() {
 	const listroom = useCallback(async () => {
 		try {
 			const response = await axiosInstance.get('/api/livechat/listroom/');
-			
+
 			const dmRooms = response.data.dmRooms.map((value) => {
 				if (userInfo?.id === value.users[1]?.id)
 					value.dmname = value.users[0]?.name + ' dm' ?? value.name;
@@ -118,7 +118,7 @@ export default function Room() {
 				return value;
 			});
 			setlistrooms(response.data.publicRooms);
-			
+
 			setdmrooms(dmRooms);
 		} catch (error) {
 			showToast("error", t('ToastsError'));
@@ -149,7 +149,7 @@ export default function Room() {
 			const reponse = await axiosInstance.get(`/api/friends/list/${userInfo?.id}`);
 			setFriendList(reponse.data);
 		}
-		catch(error) {
+		catch (error) {
 			showToast("error", t('ToastsError'));
 		}
 	}, [userInfo?.id, setFriendList, t]);
@@ -159,7 +159,7 @@ export default function Room() {
 			const response = await axiosInstance.get(`/api/livechat/users_room/${roomName}`);
 			setUsersRoom(response.data.filter((value) => value.id !== userId));
 		}
-		catch(error) {
+		catch (error) {
 			showToast("error", t('ToastsError'));
 		}
 	}, [roomName, setUsersRoom, userId, t]);
@@ -170,13 +170,13 @@ export default function Room() {
 			const { dmname: roomPseudo } = response.data;
 			setdmname(roomPseudo);
 		}
-		catch(error) {
+		catch (error) {
 			showToast("error", t('ToastsError'));
 		}
 	}, [roomName, setdmname, t]);
 
 	useEffect(() => {
-		if(userInfo.id) {
+		if (userInfo.id) {
 			listroom();
 			FriendList();
 			Users_room_list();
@@ -193,10 +193,10 @@ export default function Room() {
 	}, [roomName, userInfo?.id, listroom, FriendList, get_room, Users_room_list]);
 
 	useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-        }
-    }, [chat]);
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+		}
+	}, [chat]);
 
 	const handleProfile = (user_id) => {
 		setIsModalProfile(!isModalProfile);
@@ -227,9 +227,9 @@ export default function Room() {
 						</ul>
 					</div>
 					<div className="chat">
-						<button className="exit" onClick={() => {dmrooms.some(room => room.name === roomName) ? navigate(`/chat/`) : clearRoom() && navigate(`/chat/`)}}> {"🠔"} </button>
+						<button className="exit" onClick={() => { dmrooms.some(room => room.name === roomName) ? navigate(`/chat/`) : clearRoom() && navigate(`/chat/`) }}> {"🠔"} </button>
 						<div className="titre">
-							<h3>{t('RoomName')}: { dmname ? dmname : roomName }</h3>
+							<h3>{t('RoomName')}: {dmname ? dmname : roomName}</h3>
 						</div>
 						<div ref={messagesEndRef} className="chat-messages">
 							{chat.map((msg, index) => (
@@ -242,7 +242,7 @@ export default function Room() {
 						<div className="saisi">
 							<form onSubmit={sendMessage}>
 								<div className="d-flex">
-									<input id="chat-message-input" type="text" size="100" maxLength={maxLength} value={message} onChange={handleChange}/>
+									<input id="chat-message-input" type="text" size="100" maxLength={maxLength} value={message} onChange={handleChange} />
 									<button className="send" type='submit'> {"➤"} </button>
 								</div>
 								<p>{t('Characters')}: {caracteresRestants}</p>
@@ -256,8 +256,8 @@ export default function Room() {
 								{friendList?.friends?.length > 0 ? (
 									friendList.friends.map((friend) => (
 										<li key={friend.id}>
-                                            {friend.name}
-                                        </li>
+											{friend.name}
+										</li>
 									))
 								) : (
 									<li>{t('NoFriend')}</li>
@@ -283,34 +283,39 @@ export default function Room() {
 							</ul>
 						</div>
 						<ModalInstance height="30%" width="40%" isModal={isModalProfile} modalRef={modalProfile} name="Profile" onLaunchUpdate={null} onClose={() => setIsModalProfile(false)}>
-							<Profile id={profileId}/>
+							<Profile id={profileId} />
 						</ModalInstance>
 						<div>
 							<h3>{t('Notifications')}</h3>
 							<ul>
-								{notifications.map((notif, index) => (
-									<li key={index}>
-										{notif.response ? (
-											<p>{t('Response')} : {notif.response}</p>
-										) : (
-											<>
-												{notif.message}
-												<button
-													onClick={() => handleResponse(notif.id, "accept", notif.sender_id)}
-													disabled={clickedNotifications[notif.id]}
-												>
-													✅ {t('Accept')}
-												</button>
-												<button
-													onClick={() => handleResponse(notif.id, "decline", notif.sender_id)}
-													disabled={clickedNotifications[notif.id]}
-												>
-													❌ {t('Decline')}
-												</button>
-											</>
-										)}
-									</li>
-								))}
+								
+								{notifications.map((notif, index) => {
+									if (notif.type) {
+										if (notif.response) {
+											return (<li><p>{t('Response')} : {notif.response}</p></li>)
+										}
+										if (notif.type === "send_invite") {
+											return (
+												<li>
+													{notif.message}
+													<button
+														onClick={() => handleResponse(notif.id, "accept", notif.sender_id)}
+														disabled={clickedNotifications[notif.id]}
+													>
+														✅ {t('Accept')}
+													</button>
+													<button
+														onClick={() => handleResponse(notif.id, "decline", notif.sender_id)}
+														disabled={clickedNotifications[notif.id]}
+													>
+														❌ {t('Decline')}
+													</button>
+												</li>
+											)
+										}
+									}
+								})}
+								
 							</ul>
 						</div>
 					</div>

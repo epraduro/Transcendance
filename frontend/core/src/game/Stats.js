@@ -117,7 +117,6 @@ function Stats({ itemsArray = [] }) {
     }, [games, id, userInfo]);
     
     const handleDivClick = (name) => {
-        console.log("pass", name);
         if(name !== "")
         {
                 setMode(prevMode => 
