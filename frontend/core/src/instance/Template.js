@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import logo from '../assets/user/logo.png';
 import './Template.css';
-import { isDataWithResponseInit } from '@remix-run/router';
-import ModalInstance from './ModalInstance';
 import { useAuth } from '../users/AuthContext';
 import LiveDateTime from './DateInstance';
 import social from '../assets/user/friends.svg'; 
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import home from '../assets/home.svg'
 import info from '../assets/info.svg'
 import profile from '../assets/profile.svg'
@@ -20,10 +18,14 @@ function Template({ children, taskBarContent, launching, appArray }) {
     const [isDesktop, setIsDesktop] = useState(false);
     const { isAuthenticated } = useAuth();
     const desktopRef = useRef(null);
-    const locate = useLocation();
     const [isCreditOn, setIsCredit] = useState(false);
 
     const { t } = useTranslation();
+
+    const changeLang = (lang) => {
+        localStorage.setItem("lang", lang);
+        i18n.changeLanguage(lang);
+    }
 
     const toggleDesktop = () => {
         setIsDesktop((prev) => !prev);
@@ -161,21 +163,21 @@ function Template({ children, taskBarContent, launching, appArray }) {
                                 </div>}
                                 {isAuthenticated && <div
                                     className="p-2 bd-highlight flex-item"
-                                    onClick={() => i18n.changeLanguage('en')}
+                                    onClick={() => changeLang('en')}
                                 >
                                     🇬🇧
                                 </div>
                                 }
                                 {isAuthenticated && <div
                                     className="p-2 bd-highlight flex-item"
-                                    onClick={() => i18n.changeLanguage('fr')}
+                                    onClick={() => changeLang('fr')}
                                 >
                                     🇫🇷
                                 </div>
                                 }
                                 {isAuthenticated && <div
                                     className="p-2 bd-highlight flex-item"
-                                    onClick={() => i18n.changeLanguage('it')}
+                                    onClick={() => changeLang('it')}
                                 >
                                     🇮🇹
                                 </div>

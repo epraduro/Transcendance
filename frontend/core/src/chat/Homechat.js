@@ -222,7 +222,7 @@ export default function HomeChat() {
 		return result;
 	}
 
-	useEffect(() => {console.log(profileId)}, [profileId]);
+	useEffect(() => {}, [profileId]);
 
 	return (
 		<Template>
