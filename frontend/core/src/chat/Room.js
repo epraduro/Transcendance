@@ -230,7 +230,7 @@ export default function Room() {
 						</ul>
 					</div>
 					<div className="chat">
-						<button className="exit" onClick={() => { dmrooms.some(room => room.name === roomName) ? navigate(`/chat/`) : clearRoom() && navigate(`/chat/`) }}> {"🠔"} </button>
+						<button className="exit" onClick={() => { dmrooms.some(room => room.name === roomName) ? navigate(`/chat/`) : clearRoom() && navigate(`/chat/`) }}> {"⇦"} </button>
 						<div className="titre">
 							<h3>{t('RoomName')}: {dmname ? dmname : roomName}</h3>
 						</div>

@@ -74,6 +74,8 @@ function LoginRegister({setModal, setTerminal, removeLaunch}) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
+            console.log("Login response:", response.data); // Debugging statement
             if (response.status === 200) {
                 login();
                 setModal(false);
@@ -83,6 +85,7 @@ function LoginRegister({setModal, setTerminal, removeLaunch}) {
                 navigate('/home');
             }
         } catch (error) {
+            console.log("Login error:", error); // Debugging statement
             if (error.status === 400)
                 setStep(true);
             else if (error.status === 409)
