@@ -11,6 +11,19 @@
 •    Gestion des utilisateurs </br>
 •    Authentification sécurisée </br>
 
+<h2> Allez tester par vous même !</h2>
+
+  [http://srv558899.hstgr.cloud:4000](https://185.97.146.220:8001/home)
+
+  Vous pouvez utiliser le compte déjà créer
+
+ • Nom d'utlisateur: </br>
+  
+    admin
+ • Mot de passe: <br>
+    
+    Admin123?
+
 <h4> Objectifs du projet : </h4>
 
 •    Développer une SPA (Single Page Application) </br>
